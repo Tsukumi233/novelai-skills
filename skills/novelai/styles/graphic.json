@@ -1,0 +1,8 @@
+{
+ "description": "NovelAI-web poster recipe: V5 Full, CFG 5.6, standard presets; grouped tag lines + one prose paragraph, flat/split backgrounds, hard light.",
+ "model": "nai-diffusion-5-full",
+ "scale": 5.6,
+ "quality": "standard",
+ "uc": "heavy",
+ "suffix": "graphic illustration, high complexity, best quality, highly detailed"
+}

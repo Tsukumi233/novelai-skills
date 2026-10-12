@@ -1,0 +1,9 @@
+{
+  "name": "novelai",
+  "version": "1.0.0",
+  "description": "NovelAI V5 / V4.5 image generation for Claude Code: SDK + CLI + skill (txt2img, multi-character scenes, img2img, inpainting, metadata reproduce, style presets).",
+  "author": { "name": "Tsukumi233" },
+  "repository": "https://github.com/Tsukumi233/novelai-skills",
+  "license": "AGPL-3.0-only",
+  "keywords": ["novelai", "anime", "image-generation", "skill"]
+}

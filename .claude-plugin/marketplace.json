@@ -1,0 +1,11 @@
+{
+  "name": "novelai-skills",
+  "owner": { "name": "Tsukumi233" },
+  "plugins": [
+    {
+      "name": "novelai",
+      "source": "./",
+      "description": "NovelAI V5 / V4.5 image generation: SDK + CLI + Claude Code skill."
+    }
+  ]
+}
