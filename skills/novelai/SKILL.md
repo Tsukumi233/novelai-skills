@@ -1,11 +1,13 @@
 ---
 name: novelai
-description: Generate and edit anime images with NovelAI (V5 / V4.5) through a local SDK + CLI instead of the MCP — txt2img, multi-character scenes with per-character prompts and positions, img2img, inpainting, reading NovelAI PNG metadata and reproducing an image from it, Anlas / Opus-meter balance, tag suggestions, upscale and director tools. Use whenever the user asks to draw, generate, redraw, fix or reproduce a NovelAI image, asks how an image was made (prompt/params), or wants prompt help for NovelAI.
+description: Generate and edit anime images with NovelAI (V5 / V4.5) through a local SDK + CLI — txt2img, multi-character scenes with per-character prompts and positions, img2img, inpainting, reading NovelAI PNG metadata and reproducing an image from it, Anlas / Opus-meter balance, tag suggestions, upscale and director tools. Use whenever the user asks to draw, generate, redraw, fix or reproduce a NovelAI image, asks how an image was made (prompt/params), or wants prompt help for NovelAI.
+license: AGPL-3.0-only
+compatibility: Needs uv, Python >= 3.10, network access to NovelAI and the NOVELAI_API_KEY environment variable.
 ---
 
 # NovelAI
 
-All calls go through one script (SDK + CLI). It needs `NOVELAI_API_KEY` (a persistent API token from NovelAI → Account Settings) and [uv](https://docs.astral.sh/uv/). `<SKILL_DIR>` below is the directory containing this SKILL.md.
+All calls go through one script (SDK + CLI). It needs `NOVELAI_API_KEY` (a persistent API token from NovelAI → Account Settings) and [uv](https://docs.astral.sh/uv/). `<SKILL_DIR>` below is the directory containing this SKILL.md (usually `~/.agents/skills/novelai`, `~/.claude/skills/novelai`, `~/.config/opencode/skills/novelai` or `~/.omp/agent/skills/novelai`). If `NOVELAI_API_KEY` is missing, ask the user to set it; never ask them to paste the token into the chat.
 
 ```
 NAI = uv run --script <SKILL_DIR>/scripts/nai.py
@@ -30,7 +32,7 @@ From Python (other skills/scripts): `sys.path.insert(0, "<SKILL_DIR>/scripts"); 
 - **Never put `nsfw` in negative prompts.**
 - **One generation at a time.** NovelAI allows one concurrent generation per account; the script serializes and retries 429s. Generations must be user-initiated (NovelAI ToS): generate what was asked, not open-ended loops.
 - **Save where the user works.** Pass `-o` (or `"out"`) = the current project folder (normally the working directory). Files are `NAME_YYYYmmdd_HHMMSS_SEED.png` with NovelAI metadata intact.
-- **Look at every result** with Read before reporting. Check each character (identity anchors, count, nobody missing, duplicated or merged with an extra), each requested action and interaction direction, hands and faces, and that the setting looks like the requested place. Report honestly what V5 got right and wrong; link the files; give seeds.
+- **Look at every result** (open the PNG with your image-viewing / file-reading tool) before reporting. If you cannot view images, say so and ask the user to check. Check each character (identity anchors, count, nobody missing, duplicated or merged with an extra), each requested action and interaction direction, hands and faces, and that the setting looks like the requested place. Report honestly what V5 got right and wrong; link the files; give seeds.
 
 ## Spec (JSON)
 

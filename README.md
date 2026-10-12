@@ -1,6 +1,6 @@
 # novelai-skills
 
-A [Claude Code](https://claude.com/claude-code) skill and a single-file Python SDK/CLI for **NovelAI image generation** (V5 / V4.5). Claude writes the prompt, generates, looks at the result and fixes it, all within the free Opus quota by default.
+An [Agent Skill](https://agentskills.io) for Claude Code, OpenCode, oh-my-pi (omp) and other SKILL.md-compatible agents, plus a single-file Python SDK/CLI for **NovelAI image generation** (V5 / V4.5). The agent writes the prompt, generates, looks at the result and fixes it, all within the free Opus quota by default.
 
 [中文说明](#中文说明)
 
@@ -34,6 +34,31 @@ setx NOVELAI_API_KEY "pst-..."
 
 ## Install
 
+The skill is the folder `skills/novelai` (a standard `SKILL.md` skill). Put it where your agent looks for skills.
+
+**Any agent (shared location, recommended)** — read by OpenCode and omp; Claude Code needs its own path below:
+
+```bash
+git clone https://github.com/Tsukumi233/novelai-skills
+mkdir -p ~/.agents/skills
+cp -r novelai-skills/skills/novelai ~/.agents/skills/
+```
+
+Use `ln -s` (or a Windows junction) instead of `cp` if you want `git pull` to update it.
+
+| Agent | Global skill directory |
+|---|---|
+| Claude Code | `~/.claude/skills/novelai` (or the plugin, below) |
+| OpenCode | `~/.agents/skills/`, `~/.claude/skills/` or `~/.config/opencode/skills/` |
+| oh-my-pi (omp) | `~/.omp/agent/skills/` (also reads `~/.agents/skills/`; if not, check `enabledProviders`) |
+| Others | wherever they load `<name>/SKILL.md` skills from |
+
+**With the [`skills`](https://github.com/vercel-labs/skills) installer** (picks the right folder per agent):
+
+```bash
+npx skills add Tsukumi233/novelai-skills
+```
+
 **As a Claude Code plugin** (inside Claude Code):
 
 ```
@@ -41,14 +66,7 @@ setx NOVELAI_API_KEY "pst-..."
 /plugin install novelai@novelai-skills
 ```
 
-**Or copy the skill manually:**
-
-```bash
-git clone https://github.com/Tsukumi233/novelai-skills
-cp -r novelai-skills/skills/novelai ~/.claude/skills/
-```
-
-Then just ask Claude: *"draw Reimu and Marisa having tea on a snowy shrine porch"*.
+Then just ask your agent: *"draw Reimu and Marisa having tea on a snowy shrine porch"*. The agent needs to be able to run shell commands and, ideally, view images (to check results).
 
 ## CLI usage (without Claude)
 
@@ -84,12 +102,12 @@ nai.generate({"prompt": "1girl, ...", "chars": [{"prompt": "...", "pos": [0.3, 0
 
 ## 中文说明
 
-给 Claude Code 用的 NovelAI 生图 skill，附带单文件 Python SDK/CLI。支持文生图、图生图、局部重绘、多角色分槽（位置 + 互动）、读取 PNG 元数据并复现、风格预设、余额查询、tag 联想。默认只在 Opus 免费额度内生成，花 Anlas 的操作需要显式 `--allow-paid`。
+给 Claude Code / OpenCode / omp 等支持 SKILL.md 的 agent 用的 NovelAI 生图 skill，附带单文件 Python SDK/CLI。支持文生图、图生图、局部重绘、多角色分槽（位置 + 互动）、读取 PNG 元数据并复现、风格预设、余额查询、tag 联想。默认只在 Opus 免费额度内生成，花 Anlas 的操作需要显式 `--allow-paid`。
 
-**安装**：在 Claude Code 里执行 `/plugin marketplace add Tsukumi233/novelai-skills` 和 `/plugin install novelai@novelai-skills`，或者把 `skills/novelai` 复制到 `~/.claude/skills/`。
+**安装**：把 `skills/novelai` 复制（或软链接）到 `~/.agents/skills/`（OpenCode、omp 通用）；Claude Code 用 `~/.claude/skills/`，或者在 Claude Code 里执行 `/plugin marketplace add Tsukumi233/novelai-skills` 和 `/plugin install novelai@novelai-skills`。也可以用 `npx skills add Tsukumi233/novelai-skills` 自动安装。
 
 **准备**：安装 [uv](https://docs.astral.sh/uv/)，并把 NovelAI 持久 API Token 设为环境变量 `NOVELAI_API_KEY`。
 
-然后直接对 Claude 说「画灵梦和魔理沙在下雪的神社檐廊喝茶」就行。
+然后直接对 agent 说「画灵梦和魔理沙在下雪的神社檐廊喝茶」就行。
 
 许可证：AGPL-3.0。修改后分发或做成网络服务都必须以相同许可证开源。非官方项目，与 Anlatan / NovelAI 无关。
