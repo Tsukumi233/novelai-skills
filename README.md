@@ -2,7 +2,7 @@
 
 An [Agent Skill](https://agentskills.io) for Claude Code, OpenCode, oh-my-pi (omp) and other SKILL.md-compatible agents, plus a single-file Python SDK/CLI for **NovelAI image generation** (V5 / V4.5). The agent writes the prompt, generates, looks at the result and fixes it, all within the free Opus quota by default.
 
-[中文说明](#中文说明)
+English | [简体中文](README.zh-CN.md)
 
 ## Features
 
@@ -68,7 +68,7 @@ npx skills add Tsukumi233/novelai-skills
 
 Then just ask your agent: *"draw Reimu and Marisa having tea on a snowy shrine porch"*. The agent needs to be able to run shell commands and, ideally, view images (to check results).
 
-## CLI usage (without Claude)
+## CLI usage (without an agent)
 
 ```bash
 NAI="uv run --script skills/novelai/scripts/nai.py"
@@ -97,17 +97,3 @@ nai.generate({"prompt": "1girl, ...", "chars": [{"prompt": "...", "pos": [0.3, 0
 ## License
 
 [AGPL-3.0](LICENSE). If you modify it and distribute it, or offer it as a network service (website, bot, API), you must release your source under the same license.
-
----
-
-## 中文说明
-
-给 Claude Code / OpenCode / omp 等支持 SKILL.md 的 agent 用的 NovelAI 生图 skill，附带单文件 Python SDK/CLI。支持文生图、图生图、局部重绘、多角色分槽（位置 + 互动）、读取 PNG 元数据并复现、风格预设、余额查询、tag 联想。默认只在 Opus 免费额度内生成，花 Anlas 的操作需要显式 `--allow-paid`。
-
-**安装**：把 `skills/novelai` 复制（或软链接）到 `~/.agents/skills/`（OpenCode、omp 通用）；Claude Code 用 `~/.claude/skills/`，或者在 Claude Code 里执行 `/plugin marketplace add Tsukumi233/novelai-skills` 和 `/plugin install novelai@novelai-skills`。也可以用 `npx skills add Tsukumi233/novelai-skills` 自动安装。
-
-**准备**：安装 [uv](https://docs.astral.sh/uv/)，并把 NovelAI 持久 API Token 设为环境变量 `NOVELAI_API_KEY`。
-
-然后直接对 agent 说「画灵梦和魔理沙在下雪的神社檐廊喝茶」就行。
-
-许可证：AGPL-3.0。修改后分发或做成网络服务都必须以相同许可证开源。非官方项目，与 Anlatan / NovelAI 无关。
